@@ -142,7 +142,7 @@ const App: React.FC = () => {
              <div className="flex justify-center py-4 h-32 relative">
                 <div className="w-full h-full rounded-xl overflow-hidden">
                   <img 
-                    src="/projects-cover.jpg" 
+                    src="/PortfolioJea/projects-cover.jpg" 
                     alt="Projects Preview" 
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                   />

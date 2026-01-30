@@ -2,6 +2,9 @@
 // 🎯 PORTFOLIO DE JUAN ESTEBAN AGUINAGA
 // ============================================
 
+// Base URL para GitHub Pages
+const BASE_URL = '/PortfolioJea';
+
 export const personalInfo = {
   name: "Juan Esteban",
   lastName: "Aguinaga",
@@ -11,7 +14,7 @@ export const personalInfo = {
   email: "aguinagajuanes2003@gmail.com",
   phone: "+34 611 757 730",
   bio: "Desarrollo Apl. Multiplataforma | Desarrollo Web| Open to Junior / Remote",
-  profileImage: "/profile.png",
+  profileImage: `${BASE_URL}/profile.png`,
   
   fullBio: `Soy Desarrollador de Aplicaciones Multiplataforma con enfoque en frontend y desarrollo web. Me apasiona crear soluciones digitales funcionales, bien diseñadas y centradas en la experiencia del usuario.
 
@@ -164,7 +167,7 @@ export const projects: Project[] = [
     title: "TradeSim",
     category: "Full Stack",
     description: "Aplicación para gestionar compras en el mercado de acciones. Desarrollada con React, Django, Reflex y SQLite.",
-    image: "/tradesim.png",
+    image: `${BASE_URL}/tradesim.png`,
     technologies: ["React", "Django", "SQLite"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/pramos-m/TradeSim",
@@ -174,7 +177,7 @@ export const projects: Project[] = [
     title: "QuickVentory",
     category: "Web Development",
     description: "Sistema de gestión de inventario desarrollado en React.",
-    image: "/quickventory.png",
+    image: `${BASE_URL}/quickventory.png`,
     technologies: ["React"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/quick_ventory",
@@ -184,7 +187,7 @@ export const projects: Project[] = [
     title: "MarketPlace Electrónica",
     category: "Web Development",
     description: "Sitio web para venta de productos electrónicos, desarrollado en React y Firebase.",
-    image: "/marketplace.png",
+    image: `${BASE_URL}/marketplace.png`,
     technologies: ["React", "Firebase"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/Tecnoworld",
@@ -194,7 +197,7 @@ export const projects: Project[] = [
     title: "Diseños Blender para Unity",
     category: "Diseño 3D",
     description: "Modelado y diseño 3D en Blender integrados en proyectos Unity.",
-    image: "/blender3.png",
+    image: `${BASE_URL}/blender3.png`,
     imageStyle: { objectPosition: "center 40%" },
     technologies: ["Blender", "Unity"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
@@ -205,7 +208,7 @@ export const projects: Project[] = [
     title: "CRM-EMP",
     category: "Desktop App",
     description: "Sistema de gestión para empresas, desarrollado en PyCharm con Python y Tkinter.",
-    image: "/crm.png",
+    image: `${BASE_URL}/crm.png`,
     technologies: ["Python", "Tkinter", "PyCharm"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/crm_emp",
@@ -215,7 +218,7 @@ export const projects: Project[] = [
     title: "Página WordPress",
     category: "Web Development",
     description: "Página web de un negocio elaborada con WordPress.",
-    image: "/wordpress.png",
+    image: `${BASE_URL}/wordpress.png`,
     technologies: ["WordPress", "Diseño"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "",
@@ -225,7 +228,7 @@ export const projects: Project[] = [
     title: "Juego SpaceInvaders",
     category: "Game Development",
     description: "Videojuego clásico desarrollado en Java, HTML, CSS y Firebase.",
-    image: "/spaceInvaders.png",
+    image: `${BASE_URL}/spaceInvaders.png`,
     imageStyle: { objectPosition: "center 85%", transform: "scale(1.15)" },
     technologies: ["Java", "HTML/CSS", "Firebase"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
@@ -236,7 +239,7 @@ export const projects: Project[] = [
     title: "CRM Autoescuela",
     category: "Full Stack",
     description: "Sistema de gestión de alumnos y profesores para autoescuelas. CRUD en Python con Backbone y Django.",
-    image: "/Autoescuela.png",
+    image: `${BASE_URL}/Autoescuela.png`,
     technologies: ["Python", "Django", "Backbone"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/crm_autoescuela",
@@ -256,7 +259,7 @@ export const brandInfo = {
   tagline: "Desarrollo Web para Emprendedores",
   description: "Ayudo a pequeñas marcas y emprendimientos a construir su identidad digital con sitios web profesionales, optimizados y centrados en conversión.",
   url: "https://jea022.github.io/NoName/",
-  logo: "/logononame.png",
+  logo: `${BASE_URL}/logononame.png`,
 
   services: [
     {
