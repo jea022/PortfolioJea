@@ -450,9 +450,32 @@ const App: React.FC = () => {
                 <h4 className="text-lg font-semibold mt-1 mb-2">{project.title}</h4>
                 <p className="text-sm text-zinc-400 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, idx) => (
-                    <span key={idx} className="text-xs bg-zinc-800 px-3 py-1 rounded-full">{tech}</span>
-                  ))}
+                  {project.technologies.map((tech, idx) => {
+                    const techColors: {[key: string]: string} = {
+                      'React': 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30',
+                      'TypeScript': 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
+                      'JavaScript': 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
+                      'Node.js': 'bg-green-500/20 text-green-400 border border-green-500/30',
+                      'Python': 'bg-yellow-600/20 text-yellow-500 border border-yellow-600/30',
+                      'Java': 'bg-orange-500/20 text-orange-400 border border-orange-500/30',
+                      'MySQL': 'bg-blue-600/20 text-blue-400 border border-blue-600/30',
+                      'MongoDB': 'bg-green-600/20 text-green-500 border border-green-600/30',
+                      'Firebase': 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
+                      'Tailwind CSS': 'bg-teal-500/20 text-teal-400 border border-teal-500/30',
+                      'CSS': 'bg-blue-400/20 text-blue-300 border border-blue-400/30',
+                      'HTML': 'bg-orange-600/20 text-orange-400 border border-orange-600/30',
+                      'Blender': 'bg-orange-500/20 text-orange-400 border border-orange-500/30',
+                      'WordPress': 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30',
+                      'PHP': 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
+                      'C#': 'bg-violet-500/20 text-violet-400 border border-violet-500/30',
+                      'Unity': 'bg-zinc-400/20 text-zinc-300 border border-zinc-400/30',
+                      'Modelado 3D': 'bg-pink-500/20 text-pink-400 border border-pink-500/30',
+                      'API REST': 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+                      'Vite': 'bg-purple-400/20 text-purple-300 border border-purple-400/30',
+                    };
+                    const colorClass = techColors[tech] || 'bg-zinc-800 text-zinc-300 border border-zinc-700';
+                    return <span key={idx} className={`text-xs px-3 py-1 rounded-full ${colorClass}`}>{tech}</span>;
+                  })}
                 </div>
                 <div className="flex gap-3">
                   <a href={project.driveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-blue-500 hover:text-blue-400">
