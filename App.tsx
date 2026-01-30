@@ -24,7 +24,9 @@ import {
   Briefcase,
   Heart,
   Rocket,
-  CheckCircle
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -52,6 +54,7 @@ const App: React.FC = () => {
   const [chatMessage, setChatMessage] = useState('');
   const [chatHistory, setChatHistory] = useState<{role: 'user' | 'ai', content: string}[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [brandProjectImages, setBrandProjectImages] = useState<{[key: number]: number}>({0: 0, 1: 0, 2: 0});
 
   const handleSendChat = async () => {
     if (!chatMessage.trim()) return;
@@ -630,6 +633,76 @@ const App: React.FC = () => {
                     <span className="text-sm text-blue-400 font-medium">{service.price}</span>
                   </div>
                   <p className="text-sm text-zinc-400">{service.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Brand Projects */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Proyectos Realizados</h3>
+            <div className="space-y-4">
+              {brandInfo.projects.map((project, idx) => (
+                <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-blue-500/50 transition-colors">
+                  <div className="flex flex-col md:flex-row gap-4">
+                    {/* Image Carousel */}
+                    <div className="relative w-full md:w-48 h-32 flex-shrink-0 rounded-xl overflow-hidden bg-zinc-800">
+                      <img 
+                        src={project.images[brandProjectImages[idx] || 0]} 
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-all duration-500"
+                      />
+                      {/* Navigation Arrows */}
+                      <button 
+                        onClick={() => setBrandProjectImages(prev => ({
+                          ...prev, 
+                          [idx]: prev[idx] === 0 ? 1 : 0
+                        }))}
+                        className="absolute left-1 top-1/2 -translate-y-1/2 w-6 h-6 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center transition-colors"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button 
+                        onClick={() => setBrandProjectImages(prev => ({
+                          ...prev, 
+                          [idx]: prev[idx] === 0 ? 1 : 0
+                        }))}
+                        className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center transition-colors"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                      {/* Dots Indicator */}
+                      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-1">
+                        {project.images.map((_, imgIdx) => (
+                          <button 
+                            key={imgIdx}
+                            onClick={() => setBrandProjectImages(prev => ({...prev, [idx]: imgIdx}))}
+                            className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                              (brandProjectImages[idx] || 0) === imgIdx ? 'bg-white' : 'bg-white/40'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    {/* Project Info */}
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div>
+                        <h4 className="font-semibold text-white mb-1">{project.title}</h4>
+                        <p className="text-sm text-zinc-400 mb-2">{project.description}</p>
+                        <p className="text-sm text-green-400 font-medium">Resultados: {project.result}</p>
+                      </div>
+                      {project.url !== "#" && (
+                        <a 
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 mt-2"
+                        >
+                          Ver proyecto <ArrowUpRight className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

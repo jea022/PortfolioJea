@@ -290,6 +290,29 @@ export const brandInfo = {
     "SEO básico incluido",
     "Soporte personalizado",
   ],
+  projects: [
+    {
+      title: "Portafolio/Marca Personal",
+      description: "Landing page para marca personal.",
+      result: "45% incremento en conversiones",
+      images: [`${BASE_URL}/mp1.png`, `${BASE_URL}/mp2.png`],
+      url: "https://jea022.github.io/Portfolio/",
+    },
+    {
+      title: "Agencia de Marketing (Faralion)",
+      description: "Web corporativa con secciones de servicios.",
+      result: "60 leads mensuales",
+      images: [`${BASE_URL}/f1.png`, `${BASE_URL}/f2.png`],
+      url: "https://jea022.github.io/Faralion/",
+    },
+    {
+      title: "Emprendimiento de Repostería (Dreamy Bites)",
+      description: "Landing page B2B.",
+      result: "3.2x ROI en primer mes",
+      images: [`${BASE_URL}/db1.png`, `${BASE_URL}/db2.png`],
+      url: "https://jea022.github.io/DreamyBites/",
+    },
+  ],
 };
 
 export const softSkills = [
