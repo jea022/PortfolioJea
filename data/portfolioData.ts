@@ -182,6 +182,7 @@ export const projects: Project[] = [
     technologies: ["React"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/quick_ventory",
+    demoUrl: "https://jea022.github.io/quick_ventory/#/login",
   },
   {
     id: "3",
