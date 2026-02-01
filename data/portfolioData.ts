@@ -171,6 +171,7 @@ export const projects: Project[] = [
     technologies: ["React", "Django", "SQLite"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/pramos-m/TradeSim",
+    demoUrl: "https://drive.google.com/file/d/1cZbiKnZ2c1VmUTV0zcgb74U4m2ehfPFX/view?usp=sharing",
   },
   {
     id: "2",
