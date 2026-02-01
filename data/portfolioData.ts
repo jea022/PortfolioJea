@@ -224,6 +224,7 @@ export const projects: Project[] = [
     technologies: ["WordPress", "Diseño"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "",
+    demoUrl: "https://drive.google.com/file/d/12U8kaILRmlqNcbCnLXioFiHoxu2itDc_/view?usp=drive_link",
   },
   {
     id: "7",
