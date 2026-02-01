@@ -15,6 +15,7 @@ export interface Project {
   technologies?: string[];
   driveUrl?: string;
   githubUrl?: string;
+  demoUrl?: string;
   imageStyle?: ProjectImageStyle;
 }
 

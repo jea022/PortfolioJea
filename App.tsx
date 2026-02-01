@@ -478,6 +478,11 @@ const App: React.FC = () => {
                   })}
                 </div>
                 <div className="flex gap-3">
+                  {project.demoUrl && (
+                    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-green-500 hover:text-green-400">
+                      <Rocket className="w-4 h-4" /> Demo
+                    </a>
+                  )}
                   <a href={project.driveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-blue-500 hover:text-blue-400">
                     <ExternalLink className="w-4 h-4" /> Drive
                   </a>

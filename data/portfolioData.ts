@@ -243,6 +243,7 @@ export const projects: Project[] = [
     technologies: ["Python", "Django", "Backbone"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/crm_autoescuela",
+    demoUrl: "https://crm-autoescuela.onrender.com/",
   },
 ];
 
