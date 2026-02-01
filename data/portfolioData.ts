@@ -233,6 +233,7 @@ export const projects: Project[] = [
     technologies: ["Java", "HTML/CSS", "Firebase"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/SpaceInvaders",
+    demoUrl: "https://jea022.github.io/SpaceInvaders/",
   },
   {
     id: "8",
