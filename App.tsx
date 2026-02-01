@@ -84,6 +84,21 @@ const App: React.FC = () => {
     }
   };
 
+  // Preload project images
+  useEffect(() => {
+    const imagesToPreload = [
+      ...projects.map(p => p.image),
+      ...brandInfo.projects.flatMap(p => p.images),
+      '/PortfolioJea/projects-cover.jpg',
+      personalInfo.profileImage,
+    ];
+    
+    imagesToPreload.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
       case 'code': return <Code className="w-8 h-8" />;
