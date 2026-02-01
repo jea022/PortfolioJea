@@ -202,7 +202,7 @@ export const projects: Project[] = [
     image: `${BASE_URL}/blender3.png`,
     imageStyle: { objectPosition: "center 25%" },
     technologies: ["Blender", "Unity"],
-    driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
+    driveUrl: "https://drive.google.com/drive/folders/1TAtGLLB3S8sdzI3OhDozozHwAwSDu_fo?usp=drive_link",
     githubUrl: "",
   },
   {
@@ -214,6 +214,7 @@ export const projects: Project[] = [
     technologies: ["Python", "Tkinter", "PyCharm"],
     driveUrl: "https://drive.google.com/drive/folders/14j8zi-fH9vlZiUD1nEwvZON48V-dajc1",
     githubUrl: "https://github.com/jea022/crm_emp",
+    demoUrl: "https://drive.google.com/file/d/1g1ThIO3s8pqrpcUJtTfTtOrbmxTYexOB/view?usp=drive_link",
   },
   {
     id: "6",
