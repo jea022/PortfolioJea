@@ -1,0 +1,92 @@
+# CODEOWNERS file for PortfolioJea
+#
+# This file defines individuals or teams that are responsible for code in this repository.
+# Code owners are automatically requested for review when someone opens a pull request
+# that modifies code that they own.
+#
+# Learn more about CODEOWNERS: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+# This is a fallback and will be the owner for anything not covered by more specific rules
+* @jea022
+
+# Documentation
+# Owner for all documentation files
+/docs/ @jea022
+*.md @jea022
+/examples/ @jea022
+
+# React Components
+# Owner for all React component files
+/components/ @jea022
+*.tsx @jea022
+
+# Data and Configuration
+# Owner for data files and configuration
+/data/ @jea022
+*.json @jea022
+*.config.js @jea022
+*.config.ts @jea022
+
+# Build Configuration
+# Owner for build and development configuration
+/vite.config.ts @jea022
+/tsconfig.json @jea022
+/package.json @jea022
+
+# GitHub Configuration
+# Owner for GitHub-specific configuration
+/.github/ @jea022
+
+# Security and Legal
+# Owner for security and legal files
+/SECURITY.md @jea022
+/LICENSE @jea022
+/CODE_OF_CONDUCT.md @jea022
+
+#
+# === INSTRUCTIONS FOR MAINTAINERS ===
+#
+# To add new code owners:
+# 1. Use the format: <file_pattern> <owner1> <owner2> ...
+# 2. Owners can be GitHub usernames (with @) or team names (with @org/team-name)
+# 3. More specific patterns override less specific ones
+# 4. Patterns use the same syntax as .gitignore
+#
+# Examples:
+# - Specific file: /path/to/file.txt @username
+# - Directory: /path/to/dir/ @username
+# - File type: *.js @username
+# - Multiple owners: /path/ @user1 @user2
+# - Team: /path/ @org/team-name
+#
+# Common patterns:
+# - All TypeScript files: *.ts @username
+# - All test files: *.test.ts @username
+# - Specific directory and subdirectories: /src/ @username
+# - Root files only: /*.md @username
+#
+# Best Practices:
+# - Keep this file organized and documented
+# - Use teams instead of individuals when possible
+# - Be specific with patterns to avoid over-requesting reviews
+# - Review and update regularly as the project evolves
+#
+# Testing:
+# You can test CODEOWNERS patterns using GitHub's UI or CLI
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#testing-code-owners
+#
+
+#
+# === TODO: Customize this file ===
+#
+# Replace @jea022 with:
+# - Your own GitHub username
+# - Team names (e.g., @myorg/frontend-team)
+# - Multiple reviewers for different areas
+#
+# Add specific rules for your project, for example:
+# - /components/auth/ @security-team
+# - /api/ @backend-team
+# - *.test.ts @qa-team
+#
