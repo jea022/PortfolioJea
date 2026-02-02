@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Plus, 
   ArrowUpRight, 
@@ -33,22 +34,14 @@ import Footer from './components/Footer';
 import BentoCard from './components/BentoCard';
 import Modal from './components/Modal';
 import { GoogleGenAI } from '@google/genai';
-import { 
-  personalInfo, 
-  stats, 
-  credentials, 
-  services, 
-  projects, 
-  socialLinks, 
-  brandInfo,
-  experience,
-  softSkills,
-  conocimientos
-} from './data/portfolioData';
+import { useLanguage } from './context/LanguageContext';
+import { usePortfolioData } from './data/usePortfolioData';
 
 type ModalType = 'credentials' | 'projects' | 'services' | 'blog' | 'profiles' | 'contact' | 'about' | null;
 
 const App: React.FC = () => {
+  const { t, language } = useLanguage();
+  const { personalInfo, stats, credentials, services, projects, socialLinks, brandInfo, experience, softSkills, conocimientos } = usePortfolioData();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [chatMessage, setChatMessage] = useState('');
@@ -111,23 +104,48 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col px-4 md:px-8 lg:px-16 py-6">
-      <Navbar onLetstalk={() => setIsChatOpen(true)} onNavigate={(modal) => setActiveModal(modal)} />
+      {/* Animated Navbar */}
+      <motion.div
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <Navbar onLetstalk={() => setIsChatOpen(true)} onNavigate={(modal) => setActiveModal(modal)} />
+      </motion.div>
       
-      <main className="flex-grow mt-12 mb-20 max-w-7xl mx-auto w-full">
-        {/* Main Bento Grid: 4 columns on large screens */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <AnimatePresence mode="wait">
+        <motion.main 
+          key={language}
+          className="flex-grow mt-12 mb-20 max-w-7xl mx-auto w-full"
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.98 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        >
+          {/* Main Bento Grid: 4 columns on large screens */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Row 1 & 2 (Left): Profile Hero Card (2x2 area) */}
-          <BentoCard className="md:col-span-2 md:row-span-2 flex flex-col md:flex-row items-center gap-8 p-10 relative overflow-hidden" onClick={() => setActiveModal('about')}>
-            <div className="w-full md:w-1/2 aspect-square rounded-tl-3xl rounded-br-3xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-900 relative">
+          <BentoCard index={0} className="md:col-span-2 md:row-span-2 flex flex-col md:flex-row items-center gap-8 p-10 relative overflow-hidden" onClick={() => setActiveModal('about')}>
+            <motion.div 
+              className="w-full md:w-1/2 aspect-square rounded-tl-3xl rounded-br-3xl overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-900 relative"
+              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
               <img 
                 src={personalInfo.profileImage} 
                 alt={`${personalInfo.name} ${personalInfo.lastName}`} 
                 className="w-full h-full object-cover hover:scale-105 transition-all duration-500"
                 style={{ objectPosition: 'center 20%' }}
               />
-            </div>
-            <div className="w-full md:w-1/2 text-left">
+            </motion.div>
+            <motion.div 
+              className="w-full md:w-1/2 text-left"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               <span className="text-xs font-semibold tracking-widest text-blue-400 uppercase mb-2 block">{personalInfo.role}</span>
               <h1 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">{personalInfo.name}<br/><span className="text-gradient">{personalInfo.lastName}</span></h1>
               <p className="text-zinc-400 font-light mb-8 max-w-xs">{personalInfo.bio.substring(0, 80)}...</p>
@@ -136,18 +154,18 @@ const App: React.FC = () => {
                   <Plus className="w-5 h-5 text-zinc-600 group-hover:text-black" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </BentoCard>
 
           {/* Row 1 (Right): Credentials (1x1) */}
-          <BentoCard className="p-8 flex flex-col justify-between group" onClick={() => setActiveModal('credentials')}>
+          <BentoCard index={1} className="p-8 flex flex-col justify-between group" onClick={() => setActiveModal('credentials')}>
              <div className="flex justify-center py-4">
                 <div className="text-4xl font-serif italic text-blue-500/30">{personalInfo.lastName}</div>
              </div>
              <div>
-               <span className="text-xs font-semibold tracking-widest text-purple-400 uppercase block mb-1">Más sobre mí</span>
+               <span className="text-xs font-semibold tracking-widest text-purple-400 uppercase block mb-1">{t('card.credentials.subtitle')}</span>
                <div className="flex justify-between items-end">
-                  <h3 className="text-xl font-semibold">Credenciales</h3>
+                  <h3 className="text-xl font-semibold">{t('card.credentials')}</h3>
                   <div className="w-10 h-10 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-white group-hover:border-white transition-colors duration-300">
                     <Plus className="w-5 h-5 text-zinc-600 group-hover:text-black" />
                   </div>
@@ -156,7 +174,7 @@ const App: React.FC = () => {
           </BentoCard>
 
           {/* Row 1 (Right): Projects (1x1) */}
-          <BentoCard className="p-8 flex flex-col justify-between group overflow-hidden" onClick={() => setActiveModal('projects')}>
+          <BentoCard index={2} className="p-8 flex flex-col justify-between group overflow-hidden" onClick={() => setActiveModal('projects')}>
              <div className="flex justify-center py-4 h-32 relative">
                 <div className="w-full h-full rounded-xl overflow-hidden">
                   <img 
@@ -167,9 +185,9 @@ const App: React.FC = () => {
                 </div>
              </div>
              <div>
-               <span className="text-xs font-semibold tracking-widest text-green-400 uppercase block mb-1">Portfolio</span>
+               <span className="text-xs font-semibold tracking-widest text-green-400 uppercase block mb-1">{t('card.projects.subtitle')}</span>
                <div className="flex justify-between items-end">
-                  <h3 className="text-xl font-semibold">Proyectos</h3>
+                  <h3 className="text-xl font-semibold">{t('card.projects')}</h3>
                   <div className="w-10 h-10 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-white group-hover:border-white transition-colors duration-300">
                     <Plus className="w-5 h-5 text-zinc-600 group-hover:text-black" />
                   </div>
@@ -178,7 +196,7 @@ const App: React.FC = () => {
           </BentoCard>
 
           {/* Row 2 (Right): Services Offering (Moved here, takes 2 columns, Row 2 is shared with Profile card) */}
-          <BentoCard className="md:col-span-2 p-10 flex flex-col justify-between group" onClick={() => setActiveModal('services')}>
+          <BentoCard index={3} className="md:col-span-2 p-10 flex flex-col justify-between group" onClick={() => setActiveModal('services')}>
              <div className="flex justify-around items-center py-8">
                 <Terminal className="w-10 h-10 text-pink-400 stroke-1" />
                 <Layout className="w-10 h-10 text-blue-400 stroke-1" />
@@ -186,9 +204,9 @@ const App: React.FC = () => {
                 <Code className="w-10 h-10 text-purple-400 stroke-1" />
              </div>
              <div>
-               <span className="text-xs font-semibold tracking-widest text-cyan-400 uppercase block mb-1">Especialización</span>
+               <span className="text-xs font-semibold tracking-widest text-cyan-400 uppercase block mb-1">{t('card.services.subtitle')}</span>
                <div className="flex justify-between items-end">
-                  <h3 className="text-2xl font-semibold">Conocimientos</h3>
+                  <h3 className="text-2xl font-semibold">{t('card.services')}</h3>
                   <div className="w-10 h-10 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-white group-hover:border-white transition-colors duration-300">
                     <Plus className="w-5 h-5 text-zinc-600 group-hover:text-black" />
                   </div>
@@ -197,7 +215,7 @@ const App: React.FC = () => {
           </BentoCard>
 
           {/* Row 3 (Left): Brand/Services Card (1x1) */}
-          <BentoCard className="p-8 flex flex-col justify-between group" onClick={() => setActiveModal('blog')}>
+          <BentoCard index={4} className="p-8 flex flex-col justify-between group" onClick={() => setActiveModal('blog')}>
              <div className="flex justify-center py-4">
                <div className="flex items-center gap-2">
                  <div className="w-20 h-20 rounded-xl overflow-hidden">
@@ -206,7 +224,7 @@ const App: React.FC = () => {
                </div>
              </div>
              <div>
-               <span className="text-xs font-semibold tracking-widest text-purple-400 uppercase block mb-1">Marca Personal</span>
+               <span className="text-xs font-semibold tracking-widest text-purple-400 uppercase block mb-1">{t('card.brand')}</span>
                <div className="flex justify-between items-end">
                   <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{brandInfo.name}</h3>
                   <div className="w-10 h-10 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-white group-hover:border-white transition-colors duration-300">
@@ -217,7 +235,7 @@ const App: React.FC = () => {
           </BentoCard>
 
           {/* Row 3 (Left): Social Profiles Card (Moved here, 1x1) */}
-          <BentoCard className="p-8 flex flex-col justify-between group" onClick={() => setActiveModal('profiles')}>
+          <BentoCard index={5} className="p-8 flex flex-col justify-between group" onClick={() => setActiveModal('profiles')}>
              <div className="flex justify-center gap-4 py-8">
                 <div className="w-14 h-14 rounded-2xl bg-zinc-800 flex items-center justify-center hover:bg-zinc-700 transition-colors">
                   <Github className="w-6 h-6 text-white" />
@@ -227,9 +245,9 @@ const App: React.FC = () => {
                 </div>
              </div>
              <div>
-               <span className="text-xs font-semibold tracking-widest text-pink-400 uppercase block mb-1">Sígueme</span>
+               <span className="text-xs font-semibold tracking-widest text-pink-400 uppercase block mb-1">{t('card.profiles.subtitle')}</span>
                <div className="flex justify-between items-end">
-                  <h3 className="text-xl font-semibold">Perfiles</h3>
+                  <h3 className="text-xl font-semibold">{t('card.profiles')}</h3>
                   <div className="w-10 h-10 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-white group-hover:border-white transition-colors duration-300">
                     <Plus className="w-5 h-5 text-zinc-600 group-hover:text-black" />
                   </div>
@@ -238,27 +256,27 @@ const App: React.FC = () => {
           </BentoCard>
 
           {/* Row 3 (Right): Stats Cards - Un solo contenedor con sub-contenedores */}
-          <BentoCard className="md:col-span-2 p-6">
+          <BentoCard index={6} className="md:col-span-2 p-6">
             <div className="grid grid-cols-3 gap-4 h-full">
               <div className="bg-zinc-900/50 rounded-2xl p-4 flex flex-col items-center justify-center text-center border border-zinc-800/50 hover:border-blue-500/30 transition-colors">
                 <span className="text-4xl font-bold block mb-2 text-blue-400">{stats.yearsExperience.toString().padStart(2, '0')}</span>
-                <span className="text-xs text-zinc-500 uppercase tracking-widest leading-tight">Años de<br/>Experiencia</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-widest leading-tight">{t('stats.years')}<br/>{t('stats.experience')}</span>
               </div>
               <div className="bg-zinc-900/50 rounded-2xl p-4 flex flex-col items-center justify-center text-center border border-zinc-800/50 hover:border-green-500/30 transition-colors">
                 <span className="text-4xl font-bold block mb-2 text-green-400">+{stats.clients}</span>
-                <span className="text-xs text-zinc-500 uppercase tracking-widest leading-tight">Clientes<br/>Satisfechos</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-widest leading-tight">{t('stats.clients')}<br/>{t('stats.satisfied')}</span>
               </div>
               <div className="bg-zinc-900/50 rounded-2xl p-4 flex flex-col items-center justify-center text-center border border-zinc-800/50 hover:border-purple-500/30 transition-colors">
                 <span className="text-4xl font-bold block mb-2 text-purple-400">+{stats.projects}</span>
-                <span className="text-xs text-zinc-500 uppercase tracking-widest leading-tight">Proyectos<br/>Completados</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-widest leading-tight">{t('stats.projects')}<br/>{t('stats.completed')}</span>
               </div>
             </div>
           </BentoCard>
 
           {/* Row 4: CTA Card (4 columns) */}
-          <BentoCard className="md:col-span-2 lg:col-span-4 p-12 flex flex-col md:flex-row justify-between items-center group relative overflow-hidden" onClick={() => setActiveModal('contact')}>
+          <BentoCard index={7} className="md:col-span-2 lg:col-span-4 p-12 flex flex-col md:flex-row justify-between items-center group relative overflow-hidden" onClick={() => setActiveModal('contact')}>
             <div className="text-center md:text-left">
-               <h2 className="text-4xl md:text-6xl font-bold leading-tight">Trabajemos <span className="text-blue-500">juntos!</span></h2>
+               <h2 className="text-4xl md:text-6xl font-bold leading-tight">{t('cta.title')} <span className="text-blue-500">{t('cta.highlight')}</span></h2>
             </div>
             <div className="mt-8 md:mt-0">
                <div className="w-16 h-16 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-white group-hover:border-white transition-colors duration-300">
@@ -267,10 +285,17 @@ const App: React.FC = () => {
             </div>
           </BentoCard>
 
-        </div>
-      </main>
+          </div>
+        </motion.main>
+      </AnimatePresence>
 
-      <Footer onNavigate={(modal) => setActiveModal(modal)} />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+      >
+        <Footer onNavigate={(modal) => setActiveModal(modal)} />
+      </motion.div>
 
       {/* About/Profile Modal */}
       <Modal 
@@ -302,7 +327,7 @@ const App: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-yellow-500" />
-              Destacados
+              {t('about.highlights')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {personalInfo.highlights.map((highlight, idx) => (
@@ -321,14 +346,14 @@ const App: React.FC = () => {
               className="flex-1 py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2"
             >
               <Mail className="w-5 h-5" />
-              Contactar
+              {t('about.contact')}
             </button>
             <button 
               onClick={() => { setActiveModal('projects'); }}
               className="flex-1 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2 border border-zinc-700"
             >
               <Layout className="w-5 h-5" />
-              Ver Proyectos
+              {t('about.viewprojects')}
             </button>
           </div>
         </div>
@@ -338,15 +363,15 @@ const App: React.FC = () => {
       <Modal 
         isOpen={activeModal === 'credentials'} 
         onClose={() => setActiveModal(null)}
-        title="Credenciales"
-        subtitle="Más sobre mí"
+        title={t('credentials.title')}
+        subtitle={t('credentials.subtitle')}
       >
         <div className="space-y-8">
           {/* Experience */}
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Briefcase className="w-6 h-6 text-blue-500" />
-              <h3 className="text-xl font-semibold">Experiencia</h3>
+              <h3 className="text-xl font-semibold">{t('credentials.experience')}</h3>
             </div>
             <div className="space-y-4">
               {experience.map((exp, idx) => (
@@ -373,7 +398,7 @@ const App: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <GraduationCap className="w-6 h-6 text-purple-500" />
-              <h3 className="text-xl font-semibold">Educación</h3>
+              <h3 className="text-xl font-semibold">{t('credentials.education')}</h3>
             </div>
             <div className="space-y-4">
               {credentials.education.map((edu, idx) => (
@@ -393,7 +418,7 @@ const App: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Award className="w-6 h-6 text-yellow-500" />
-              <h3 className="text-xl font-semibold">Certificaciones</h3>
+              <h3 className="text-xl font-semibold">{t('credentials.certifications')}</h3>
             </div>
             <div className="space-y-4">
               {credentials.certifications.map((cert, idx) => (
@@ -409,7 +434,7 @@ const App: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Globe className="w-6 h-6 text-green-500" />
-              <h3 className="text-xl font-semibold">Idiomas</h3>
+              <h3 className="text-xl font-semibold">{t('credentials.languages')}</h3>
             </div>
             <div className="flex flex-wrap gap-3">
               {credentials.languages.map((lang, idx) => (
@@ -442,8 +467,8 @@ const App: React.FC = () => {
       <Modal 
         isOpen={activeModal === 'projects'} 
         onClose={() => setActiveModal(null)}
-        title="Proyectos"
-        subtitle="Portfolio"
+        title={t('projects.title')}
+        subtitle={t('projects.subtitle')}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
@@ -503,7 +528,7 @@ const App: React.FC = () => {
                   </a>
                   {project.githubUrl && (
                     <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-zinc-400 hover:text-white">
-                      <Github className="w-4 h-4" /> Código
+                      <Github className="w-4 h-4" /> {t('projects.code')}
                     </a>
                   )}
                 </div>
@@ -517,15 +542,15 @@ const App: React.FC = () => {
       <Modal 
         isOpen={activeModal === 'services'} 
         onClose={() => setActiveModal(null)}
-        title="Conocimientos"
-        subtitle="Formación DAM - Escuela Prat"
+        title={t('services.title')}
+        subtitle={t('services.subtitle')}
       >
         <div className="space-y-8">
           {/* Áreas de especialización */}
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-yellow-500" />
-              Áreas de Especialización
+              {t('services.areas')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {services.map((service, idx) => (
@@ -544,11 +569,11 @@ const App: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Code className="w-5 h-5 text-blue-500" />
-              Tecnologías y Herramientas
+              {t('services.technologies')}
             </h3>
             <div className="space-y-4">
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Lenguajes</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('services.languages')}</span>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {conocimientos.tecnologias.lenguajes.map((tech, idx) => (
                     <span key={idx} className="px-3 py-1.5 bg-blue-500/20 text-blue-400 rounded-full text-sm">{tech}</span>
@@ -556,7 +581,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Frameworks</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('services.frameworks')}</span>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {conocimientos.tecnologias.frameworks.map((tech, idx) => (
                     <span key={idx} className="px-3 py-1.5 bg-purple-500/20 text-purple-400 rounded-full text-sm">{tech}</span>
@@ -564,7 +589,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Herramientas</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('services.tools')}</span>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {conocimientos.tecnologias.herramientas.map((tech, idx) => (
                     <span key={idx} className="px-3 py-1.5 bg-green-500/20 text-green-400 rounded-full text-sm">{tech}</span>
@@ -572,7 +597,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Bases de Datos</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('services.databases')}</span>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {conocimientos.tecnologias.bases_datos.map((tech, idx) => (
                     <span key={idx} className="px-3 py-1.5 bg-orange-500/20 text-orange-400 rounded-full text-sm">{tech}</span>
@@ -580,7 +605,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Otros</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('services.other')}</span>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {conocimientos.tecnologias.otros.map((tech, idx) => (
                     <span key={idx} className="px-3 py-1.5 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">{tech}</span>
@@ -594,7 +619,7 @@ const App: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <GraduationCap className="w-5 h-5 text-purple-500" />
-              DAM - Primer Curso
+              {t('services.firstyear')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {conocimientos.primerCurso.map((modulo, idx) => (
@@ -610,7 +635,7 @@ const App: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <GraduationCap className="w-5 h-5 text-green-500" />
-              DAM - Segundo Curso
+              {t('services.secondyear')}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {conocimientos.segundoCurso.map((modulo, idx) => (
@@ -626,7 +651,7 @@ const App: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
               <Cpu className="w-5 h-5 text-pink-500" />
-              Nivel de Dominio
+              {t('services.proficiency')}
             </h3>
             <div className="space-y-3">
               {personalInfo.skills.map((skill, idx) => (
@@ -667,7 +692,7 @@ const App: React.FC = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Servicios</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('brand.services')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {brandInfo.services.map((service, idx) => (
                 <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-blue-500/50 transition-colors">
@@ -680,7 +705,7 @@ const App: React.FC = () => {
 
           {/* Brand Projects */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Proyectos Realizados</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('brand.projects')}</h3>
             <div className="space-y-4">
               {brandInfo.projects.map((project, idx) => (
                 <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-blue-500/50 transition-colors">
@@ -729,7 +754,7 @@ const App: React.FC = () => {
                       <div>
                         <h4 className="font-semibold text-white mb-1">{project.title}</h4>
                         <p className="text-sm text-zinc-400 mb-2">{project.description}</p>
-                        <p className="text-sm text-green-400 font-medium">Resultados: {project.result}</p>
+                        <p className="text-sm text-green-400 font-medium">{t('brand.results')}: {project.result}</p>
                       </div>
                       {project.url !== "#" && (
                         <a 
@@ -738,7 +763,7 @@ const App: React.FC = () => {
                           rel="noopener noreferrer"
                           className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 mt-2"
                         >
-                          Ver proyecto <ArrowUpRight className="w-4 h-4" />
+                          {t('brand.viewproject')} <ArrowUpRight className="w-4 h-4" />
                         </a>
                       )}
                     </div>
@@ -750,7 +775,7 @@ const App: React.FC = () => {
 
           {/* Benefits */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">¿Qué incluye?</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('brand.includes')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {brandInfo.benefits.map((benefit, idx) => (
                 <div key={idx} className="flex items-center gap-3 bg-zinc-900 rounded-xl p-4 border border-zinc-800">
@@ -768,7 +793,7 @@ const App: React.FC = () => {
                     className="flex-1 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2"
                   >
                     <Mail className="w-5 h-5" />
-                    Solicitar Presupuesto
+                    {t('brand.request')}
                   </button>
             {brandInfo.url !== "#" && (
               <a 
@@ -778,7 +803,7 @@ const App: React.FC = () => {
                 className="flex-1 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2 border border-zinc-700"
               >
                 <ExternalLink className="w-5 h-5" />
-                Ver Web
+                {t('brand.viewweb')}
               </a>
             )}
           </div>
@@ -789,8 +814,8 @@ const App: React.FC = () => {
       <Modal 
         isOpen={activeModal === 'profiles'} 
         onClose={() => setActiveModal(null)}
-        title="Redes Sociales"
-        subtitle="Sígueme"
+        title={t('profiles.title')}
+        subtitle={t('profiles.subtitle')}
       >
         <div className="grid grid-cols-2 gap-4">
           <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-zinc-700 transition-colors flex flex-col items-center gap-3 group">
@@ -808,8 +833,8 @@ const App: React.FC = () => {
       <Modal 
         isOpen={activeModal === 'contact'} 
         onClose={() => setActiveModal(null)}
-        title="Hablemos"
-        subtitle="Contacto"
+        title={t('contact.title')}
+        subtitle={t('contact.subtitle')}
       >
         <div className="space-y-6">
           <p className="text-zinc-400">{personalInfo.bio}</p>
@@ -820,7 +845,7 @@ const App: React.FC = () => {
                 <Mail className="w-6 h-6 text-blue-500" />
               </div>
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Email</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('contact.email')}</span>
                 <p className="font-medium group-hover:text-blue-500 transition-colors">{personalInfo.email}</p>
               </div>
             </a>
@@ -830,7 +855,7 @@ const App: React.FC = () => {
                 <Phone className="w-6 h-6 text-green-500" />
               </div>
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Teléfono</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('contact.phone')}</span>
                 <p className="font-medium group-hover:text-green-500 transition-colors">{personalInfo.phone}</p>
               </div>
             </a>
@@ -840,7 +865,7 @@ const App: React.FC = () => {
                 <MapPin className="w-6 h-6 text-purple-500" />
               </div>
               <div>
-                <span className="text-xs text-zinc-500 uppercase tracking-wider">Ubicación</span>
+                <span className="text-xs text-zinc-500 uppercase tracking-wider">{t('contact.location')}</span>
                 <p className="font-medium">{personalInfo.location}</p>
               </div>
             </div>
@@ -851,7 +876,7 @@ const App: React.FC = () => {
             className="w-full py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-semibold transition-colors flex items-center justify-center gap-2"
           >
             <Sparkles className="w-5 h-5" />
-            Chat con Asistente IA
+            {t('contact.aichat')}
           </button>
         </div>
       </Modal>
@@ -866,8 +891,8 @@ const App: React.FC = () => {
                   <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">Asistente IA de Juan</h3>
-                  <p className="text-xs text-zinc-500">Online y listo para ayudar</p>
+                  <h3 className="font-semibold">{t('chat.title')}</h3>
+                  <p className="text-xs text-zinc-500">{t('chat.status')}</p>
                 </div>
               </div>
               <button onClick={() => setIsChatOpen(false)} className="p-2 hover:bg-zinc-800 rounded-full transition-colors">
@@ -878,7 +903,7 @@ const App: React.FC = () => {
             <div className="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar">
               {chatHistory.length === 0 && (
                 <div className="text-center py-10">
-                  <p className="text-zinc-500 text-sm">Pregúntame sobre mi trabajo, experiencia o disponibilidad.</p>
+                  <p className="text-zinc-500 text-sm">{t('chat.empty')}</p>
                 </div>
               )}
               {chatHistory.map((chat, idx) => (
@@ -912,7 +937,7 @@ const App: React.FC = () => {
                   value={chatMessage}
                   onChange={(e) => setChatMessage(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSendChat()}
-                  placeholder="Escríbeme algo..."
+                  placeholder={t('chat.placeholder')}
                   className="w-full bg-zinc-900 border border-zinc-800 rounded-full py-3 px-6 text-sm focus:outline-none focus:border-blue-500 transition-colors pr-14"
                 />
                 <button 
