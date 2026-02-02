@@ -240,7 +240,7 @@ export const projects: Project[] = [
   },
   {
     id: "8",
-    title: "CRM Autoescuela",
+    title: "CRUD Autoescuela",
     category: "Full Stack",
     description: "Sistema de gestión de alumnos y profesores para autoescuelas. CRUD en Python con Backbone y Django.",
     image: `${BASE_URL}/Autoescuela.png`,
