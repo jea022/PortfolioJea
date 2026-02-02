@@ -671,10 +671,7 @@ const App: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {brandInfo.services.map((service, idx) => (
                 <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-blue-500/50 transition-colors">
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold">{service.title}</h4>
-                    <span className="text-sm text-blue-400 font-medium">{service.price}</span>
-                  </div>
+                  <h4 className="font-semibold mb-2">{service.title}</h4>
                   <p className="text-sm text-zinc-400">{service.description}</p>
                 </div>
               ))}
@@ -766,13 +763,13 @@ const App: React.FC = () => {
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <a 
-              href={`mailto:${personalInfo.email}?subject=Consulta%20JEA%20Dev%20Studio`}
-              className="flex-1 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2"
-            >
-              <Mail className="w-5 h-5" />
-              Solicitar Presupuesto
-            </a>
+            <button 
+                    onClick={() => setActiveModal('contact')}
+                    className="flex-1 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2"
+                  >
+                    <Mail className="w-5 h-5" />
+                    Solicitar Presupuesto
+                  </button>
             {brandInfo.url !== "#" && (
               <a 
                 href={brandInfo.url}

@@ -40,10 +40,10 @@ Busco mi primera oportunidad profesional como desarrollador junior, idealmente e
     { name: "JavaScript", level: 85 },
     { name: "React", level: 80 },
     { name: "TypeScript", level: 75 },
-    { name: "Java", level: 80 },
-    { name: "SQL / Bases de datos", level: 75 },
-    { name: "Git / GitHub", level: 85 },
-    { name: "Tailwind CSS", level: 85 },
+    { name: "Java", level: 70 },
+    { name: "SQL / Bases de datos", level: 65 },
+    { name: "Git / GitHub", level: 80 },
+    { name: "Tailwind CSS", level: 75 },
   ],
 };
 
@@ -57,34 +57,34 @@ export const credentials = {
   education: [
     {
       degree: "Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)",
-      institution: "Institución Prat Educación",
-      year: "2022 - 2024",
+      institution: "Institución Prat Formación Profesional",
+      year: "2023 - 2025",
       location: "Barcelona, España",
     },
     {
       degree: "Bachiller Académico",
-      institution: "Colegio Pío XII",
-      year: "Completado",
-      location: "Colombia",
+      institution: "Colegio Franciscano Pío XII",
+      year: "2014 - 2021",
+      location: "Cali, Colombia",
     },
   ],
   certifications: [
     {
-      name: "Inglés B1",
+      name: "English Language Training – Level B2",
       issuer: "Learn English",
-      year: "2023",
+      year: "2019 - 2021",
     },
   ],
   languages: [
     { name: "Español", level: "Nativo" },
     { name: "Catalán", level: "Nativo" },
-    { name: "Inglés", level: "B1 Intermedio" },
+    { name: "Inglés", level: "B2 Intermedio" },
   ],
 };
 
 export const experience = [
   {
-    title: "Desarrollador Web",
+    title: "Desarrollador De Software",
     company: "Ancoradual",
     type: "Prácticas Profesionales",
     duration: "6 meses",
@@ -98,7 +98,7 @@ export const experience = [
   
 ];
 
-// Conocimientos técnicos basados en DAM - Escuela Prat Educación
+// Conocimientos técnicos basados en DAM - Escuela Prat Formación Profesional
 export const conocimientos = {
   // Áreas principales de especialización
   areas: [
@@ -270,22 +270,18 @@ export const brandInfo = {
     {
       title: "Landing Pages",
       description: "Páginas de aterrizaje optimizadas para captar clientes y generar leads.",
-      price: "Desde 299€",
     },
     {
       title: "Web Corporativa",
       description: "Sitio web profesional para dar credibilidad y presencia online a tu negocio.",
-      price: "Desde 499€",
     },
     {
       title: "E-commerce Básico",
       description: "Tienda online para empezar a vender tus productos en internet.",
-      price: "Desde 799€",
     },
     {
       title: "Mantenimiento Web",
       description: "Actualizaciones, seguridad y soporte técnico continuo.",
-      price: "Desde 49€/mes",
     },
   ],
   benefits: [
