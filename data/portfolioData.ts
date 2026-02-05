@@ -263,7 +263,7 @@ export const brandInfo = {
   name: "NoName",
   tagline: "Desarrollo Web para Emprendedores",
   description: "Ayudo a pequeñas marcas y emprendimientos a construir su identidad digital con sitios web profesionales, optimizados y centrados en conversión.",
-  url: "https://jea022.github.io/NoName/",
+  url: "https://jea022.github.io/NoName2/",
   logo: `${BASE_URL}/NoName.png`,
 
   services: [
