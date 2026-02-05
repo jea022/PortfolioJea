@@ -224,9 +224,9 @@ const App: React.FC = () => {
                </div>
              </div>
              <div>
-               <span className="text-xs font-semibold tracking-widest text-purple-400 uppercase block mb-1">{t('card.brand')}</span>
+               <span className="text-xs font-semibold tracking-widest text-orange-400 uppercase block mb-1">{t('card.brand')}</span>
                <div className="flex justify-between items-end">
-                  <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">{brandInfo.name}</h3>
+                  <h3 className="text-xl font-semibold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">{brandInfo.name}</h3>
                   <div className="w-10 h-10 border border-zinc-800 rounded-full flex items-center justify-center group-hover:bg-white group-hover:border-white transition-colors duration-300">
                     <Plus className="w-5 h-5 text-zinc-600 group-hover:text-black" />
                   </div>
@@ -682,10 +682,10 @@ const App: React.FC = () => {
       >
         <div className="space-y-8">
           {/* Hero */}
-          <div className="bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-2xl p-6 border border-blue-500/30">
+          <div className="bg-gradient-to-br from-orange-600/20 to-amber-600/20 rounded-2xl p-6 border border-orange-500/30">
             <div className="mb-4">
               <h3 className="text-2xl font-bold">{brandInfo.name}</h3>
-              <p className="text-blue-400">{brandInfo.tagline}</p>
+              <p className="text-orange-400">{brandInfo.tagline}</p>
             </div>
             <p className="text-zinc-300 leading-relaxed">{brandInfo.description}</p>
           </div>
@@ -695,7 +695,7 @@ const App: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">{t('brand.services')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {brandInfo.services.map((service, idx) => (
-                <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-blue-500/50 transition-colors">
+                <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-orange-500/50 transition-colors">
                   <h4 className="font-semibold mb-2">{service.title}</h4>
                   <p className="text-sm text-zinc-400">{service.description}</p>
                 </div>
@@ -708,7 +708,7 @@ const App: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">{t('brand.projects')}</h3>
             <div className="space-y-4">
               {brandInfo.projects.map((project, idx) => (
-                <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-blue-500/50 transition-colors">
+                <div key={idx} className="bg-zinc-900 rounded-2xl p-5 border border-zinc-800 hover:border-orange-500/50 transition-colors">
                   <div className="flex flex-col md:flex-row gap-4">
                     {/* Image Carousel */}
                     <div className="relative w-full md:w-48 h-32 flex-shrink-0 rounded-xl overflow-hidden bg-zinc-800">
@@ -761,7 +761,7 @@ const App: React.FC = () => {
                           href={project.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-blue-400 hover:text-blue-300 flex items-center gap-1 mt-2"
+                          className="text-sm text-orange-400 hover:text-orange-300 flex items-center gap-1 mt-2"
                         >
                           {t('brand.viewproject')} <ArrowUpRight className="w-4 h-4" />
                         </a>
@@ -790,7 +790,7 @@ const App: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-3">
             <button 
                     onClick={() => setActiveModal('contact')}
-                    className="flex-1 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-4 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2"
                   >
                     <Mail className="w-5 h-5" />
                     {t('brand.request')}
