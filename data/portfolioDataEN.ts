@@ -240,7 +240,7 @@ export const brandInfoEN = {
   tagline: "Web Development for Entrepreneurs",
   description: "I help small brands and startups build their digital identity with professional, optimized websites focused on conversion.",
   url: "https://jea022.github.io/NoName/",
-  logo: `${BASE_URL}/logononame.png`,
+  logo: `${BASE_URL}/NoName.png`,
 
   services: [
     {
