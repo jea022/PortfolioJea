@@ -53,8 +53,8 @@ const Navbar: React.FC<NavbarProps> = ({ onLetstalk, onNavigate }) => {
 
       <div className="flex items-center gap-3">
         <a 
-          href="/PortfolioJea/CV_JEA_English_Español.pdf"
-          download="CV_Juan_Esteban_Aguinaga.pdf"
+          href="/PortfolioJea/public/Ats_Cv_Jea_Eng_Esp.pdf"
+          download="Ats_Cv_Jea_Eng_Esp.pdf"
           className="px-6 py-2.5 bg-zinc-900 border border-zinc-800 hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 rounded-xl text-sm font-semibold"
         >
           {t('nav.cv')}
