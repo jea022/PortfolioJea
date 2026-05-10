@@ -15,7 +15,16 @@ export interface Project {
   technologies?: string[];
   driveUrl?: string;
   githubUrl?: string;
+  demoUrl?: string;
   imageStyle?: ProjectImageStyle;
+}
+
+export interface BrandProject {
+  title: string;
+  description: string;
+  result: string;
+  url: string;
+  images: string[];
 }
 
 export interface Stat {
@@ -24,8 +33,9 @@ export interface Stat {
 }
 
 export interface Service {
-  name: string;
-  icon: React.ReactNode;
+  icon: string;
+  title: string;
+  description: string;
 }
 
 export interface SocialProfile {
