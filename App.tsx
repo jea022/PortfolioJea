@@ -124,7 +124,7 @@ const App: React.FC = () => {
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
       const response = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.0-flash',
         contents: userMsg,
         config: {
           systemInstruction: "Eres el asistente IA de Juan Esteban Aguinaga, un Desarrollador de Aplicaciones Multiplataforma (DAM) especializado en Frontend y desarrollo web, ubicado en Barcelona, España. Juan tiene 2 años de experiencia, realizó prácticas en Ancoradual y tiene más de 3 años de experiencia en gestión. Responde en español de forma profesional, amigable y concisa. Ayuda a responder preguntas sobre su experiencia, habilidades, disponibilidad y servicios.",
@@ -132,16 +132,19 @@ const App: React.FC = () => {
       });
       const aiResponse = response.text || "Lo siento, no pude procesar eso. ¡Juan está ocupado creando cosas increíbles!";
       setChatHistory(prev => [...prev, { role: 'ai', content: aiResponse }]);
-    } catch (error) {
+    } catch (error: any) {
       console.error("AI Error:", error);
-      setChatHistory(prev => [...prev, { role: 'ai', content: "Error conectando con el asistente. Por favor, intenta de nuevo." }]);
+      const isQuota = error?.message?.includes('429') || error?.message?.includes('RESOURCE_EXHAUSTED');
+      setChatHistory(prev => [...prev, { role: 'ai', content: isQuota
+        ? "El asistente ha alcanzado su límite de uso por hoy. Por favor, intenta de nuevo mañana o contacta a Juan directamente."
+        : "Error conectando con el asistente. Por favor, intenta de nuevo." }]);
     } finally {
       setIsTyping(false);
     }
   };
 
   useEffect(() => {
-    ["https://badge.mediaplus.ma/greenbinary/jaguinag", ...pr.map(p => p.image), ...bi.projects.flatMap(p => p.images), bi.logo, "/projects-cover.jpg", pi.profileImage].forEach(src => {
+    ["https://badge.mediaplus.ma/greenbinary/jaguinag", ...pr.map(p => p.image), ...bi.projects.flatMap(p => p.images), bi.logo, "projects-cover.jpg", pi.profileImage].forEach(src => {
       const img = new Image();
       img.src = src;
     });
@@ -331,7 +334,7 @@ const App: React.FC = () => {
         <div className="space-y-8">
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="w-32 h-32 rounded-2xl overflow-hidden flex-shrink-0">
-              <img src={pi.profileImage} alt={`${pi.name} ${pi.lastName}`} className="w-full h-full object-cover" />
+              <img src={pi.profileImage} alt={`${pi.name} ${pi.lastName}`} className="w-full h-full object-cover" style={{ objectPosition: 'center 20%' }} />
             </div>
             <div>
               <div className="flex items-center gap-2 text-sm text-zinc-400 mb-2"><MapPin className="w-4 h-4" />{pi.location}</div>

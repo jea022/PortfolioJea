@@ -37,7 +37,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLetstalk, onNavigate, language, onLan
       </div>
 
       <div className="flex items-center gap-3">
-        <a href="/curriculum.pdf" download="CV_Juan_Esteban_Aguinaga.pdf" className="px-6 py-2.5 bg-zinc-900 border border-zinc-800 hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 rounded-xl text-sm font-semibold">
+        <a href={`${import.meta.env.BASE_URL}curriculum.pdf`} download="CV_Juan_Esteban_Aguinaga.pdf" className="px-6 py-2.5 bg-zinc-900 border border-zinc-800 hover:bg-blue-600 hover:border-blue-600 transition-all duration-300 rounded-xl text-sm font-semibold">
           {language === 'es' ? 'Curriculum' : 'Resume'}
         </a>
         <button onClick={() => onNavigate('contact')} className="px-6 py-2.5 bg-zinc-900 border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all duration-300 rounded-xl text-sm font-semibold">
